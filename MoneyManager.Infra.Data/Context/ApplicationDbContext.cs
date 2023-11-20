@@ -2,7 +2,7 @@ using System.Reflection;
 using FluentValidation.Results;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Domain.Contratcts.Interfaces;
-using MoneyManager.Domain.Models;
+using MoneyManager.Domain.Entities;
 using MoneyManager.Infra.Data.Extensions;
 
 namespace MoneyManager.Infra.Data.Context;
@@ -13,6 +13,7 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     {}
 
     public DbSet<User> Users { get; set; } = null!;
+    public DbSet<Revenue> Revenues { get; set; } = null!;
     public async Task<bool> Commit() => await SaveChangesAsync() > 0;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)

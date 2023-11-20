@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Domain.Contratcts.Repositories;
-using MoneyManager.Domain.Models;
+using MoneyManager.Domain.Entities;
 using MoneyManager.Infra.Data.Context;
 
 namespace MoneyManager.Infra.Data.Repositories;

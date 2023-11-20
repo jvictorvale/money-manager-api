@@ -2,7 +2,7 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using MoneyManager.Domain.Contratcts.Interfaces;
 using MoneyManager.Domain.Contratcts.Repositories;
-using MoneyManager.Domain.Models;
+using MoneyManager.Domain.Entities;
 using MoneyManager.Infra.Data.Context;
 
 namespace MoneyManager.Infra.Data.Repositories;
@@ -18,7 +18,22 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
         Context = context;
         _dbSet = context.Set<T>();
     }
-    
+
+    public void Add(T entity)
+    {
+        _dbSet.Add(entity);
+    }
+
+    public void Update(T entity)
+    {
+        _dbSet.Update(entity);
+    }
+
+    public void Delete(T entity)
+    {
+        _dbSet.Remove(entity);
+    }
+
     public IUnitOfWork UnitOfWork => Context;
     
     public async Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression)

@@ -9,7 +9,7 @@ using MoneyManager.Application.Contracts;
 using MoneyManager.Application.DTOs.User;
 using MoneyManager.Application.Notifications;
 using MoneyManager.Domain.Contratcts.Repositories;
-using MoneyManager.Domain.Models;
+using MoneyManager.Domain.Entities;
 
 namespace MoneyManager.Application.Services;
 

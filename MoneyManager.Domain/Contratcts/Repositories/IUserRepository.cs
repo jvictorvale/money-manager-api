@@ -1,4 +1,4 @@
-using MoneyManager.Domain.Models;
+using MoneyManager.Domain.Entities;
 
 namespace MoneyManager.Domain.Contratcts.Repositories;
 

@@ -1,6 +1,6 @@
 using AutoMapper;
 using MoneyManager.Application.DTOs.User;
-using MoneyManager.Domain.Models;
+using MoneyManager.Domain.Entities;
 
 namespace MoneyManager.Application.AutoMapper;
 

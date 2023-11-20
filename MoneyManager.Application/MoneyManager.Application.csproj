@@ -14,12 +14,13 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MoneyManager.Domain\MoneyManager.Domain.csproj" />
+      <ProjectReference Include="..\MoneyManager.Infra.Data\MoneyManager.Infra.Data.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="AutoMapper" Version="12.0.1" />
       <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
       <PackageReference Include="NetDevPack.Security.Jwt.AspNetCore" Version="7.1.3" />
       <PackageReference Include="NetDevPack.Security.Jwt.Core" Version="7.1.3" />
       <PackageReference Include="ScottBrady91.AspNetCore.Identity.Argon2PasswordHasher" Version="1.4.0" />

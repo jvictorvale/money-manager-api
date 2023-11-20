@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MoneyManager.Domain.Models;
+using MoneyManager.Domain.Entities;
 
 namespace MoneyManager.Infra.Data.Mappings;
 
