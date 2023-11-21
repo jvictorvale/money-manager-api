@@ -12,8 +12,9 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {}
 
-    public DbSet<User> Users { get; set; } = null!;
-    public DbSet<Revenue> Revenues { get; set; } = null!;
+    public DbSet<Usuario> Usuarios { get; set; } = null!;
+    public DbSet<Capital> Capitais { get; set; } = null!;
+    
     public async Task<bool> Commit() => await SaveChangesAsync() > 0;
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -31,18 +32,17 @@ public class ApplicationDbContext : DbContext, IUnitOfWork
     
     private void ApplyTrackingChanges()
     {
-        var entries = ChangeTracker
-            .Entries()
+        var entries = ChangeTracker.Entries()
             .Where(e => e.Entity is ITracking && e.State is EntityState.Added or EntityState.Modified);
 
         foreach (var entityEntry in entries)
         {
-            ((ITracking)entityEntry.Entity).UpdatedAt = DateTime.Now;
+            ((ITracking)entityEntry.Entity).AtualizadoEm = DateTime.Now;
             
             if (entityEntry.State != EntityState.Added)
                 continue;
 
-            ((ITracking)entityEntry.Entity).CreatedAt = DateTime.Now;
+            ((ITracking)entityEntry.Entity).CriadoEm = DateTime.Now;
         }
     }
     

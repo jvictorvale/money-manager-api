@@ -6,33 +6,33 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MoneyManager.Application.Contracts;
-using MoneyManager.Application.DTOs.User;
+using MoneyManager.Application.DTOs.Usuario;
 using MoneyManager.Application.Notifications;
 using MoneyManager.Domain.Contratcts.Repositories;
 using MoneyManager.Domain.Entities;
 
 namespace MoneyManager.Application.Services;
 
-public class UserService : BaseService, IUserService
+public class UsuarioService : BaseService, IUsuarioService
 {
     private readonly IConfiguration _configuration;
-    private readonly IUserRepository _userRepository;
-    private readonly IPasswordHasher<User> _passwordHasher;
+    private readonly IUsuarioRepository _usuarioRepository;
+    private readonly IPasswordHasher<Usuario> _passwordHasher;
 
-    public UserService(
+    public UsuarioService(
         IMapper mapper,
         INotificator notificator,
         IConfiguration configuration,
-        IUserRepository userRepository,
-        IPasswordHasher<User> passwordHasher
+        IUsuarioRepository usuarioRepository,
+        IPasswordHasher<Usuario> passwordHasher
     ) : base(mapper, notificator)
     {
         _configuration = configuration;
-        _userRepository = userRepository;
+        _usuarioRepository = usuarioRepository;
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<UserDto?> Register(RegisterUserDto dto)
+    public async Task<UsuarioDto?> Adicionar(AdicionarUsuarioDto dto)
     {
         if (!dto.Validate(out var validationResult))
         {
@@ -40,30 +40,28 @@ public class UserService : BaseService, IUserService
             return null;
         }
 
-        var getUser = await _userRepository.GetByEmail(dto.Email);
-
-        if (getUser != null)
+        var obterUsuario = await _usuarioRepository.ObterPorEmail(dto.Email);
+        if (obterUsuario != null)
         {
             Notificator.Handle("Já existe um usuário registrado com o email informado.");
             return null;
         }
         
-        var user = Mapper.Map<User>(dto);
+        var usuario = Mapper.Map<Usuario>(dto);
+        usuario.Senha = _passwordHasher.HashPassword(usuario, dto.Senha);
 
-        user.Password = _passwordHasher.HashPassword(user, dto.Password);
+        _usuarioRepository.Adicionar(usuario);
 
-        _userRepository.Register(user);
-
-        if (await _userRepository.UnitOfWork.Commit())
+        if (await _usuarioRepository.UnitOfWork.Commit())
         {
-            return Mapper.Map<UserDto>(user);
+            return Mapper.Map<UsuarioDto>(usuario);
         }
 
         Notificator.Handle("Não foi possível registrar o usuário.");
         return null;
     }
     
-    public async Task<TokenUserDto?> Login(LoginUserDto dto)
+    public async Task<TokenUsuarioDto?> Login(LoginUsuarioDto dto)
     {
         if (!dto.Validate(out var validationResult))
         {
@@ -71,19 +69,19 @@ public class UserService : BaseService, IUserService
             return null;
         }
 
-        var user = await _userRepository.GetByEmail(dto.Email);
+        var usuario = await _usuarioRepository.ObterPorEmail(dto.Email);
 
-        if (user != null && _passwordHasher.VerifyHashedPassword(user, user.Password, 
-                dto.Password) == PasswordVerificationResult.Success)
+        if (usuario != null && _passwordHasher.VerifyHashedPassword(usuario, usuario.Senha, 
+                dto.Senha) == PasswordVerificationResult.Success)
         {
-            return GenerateToken(user);
+            return GerarToken(usuario);
         }
 
         Notificator.Handle("Email ou senha estão incorretos.");
         return null;
     }
     
-    private TokenUserDto GenerateToken(User user)
+    private TokenUsuarioDto GerarToken(Usuario usuario)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
 
@@ -93,9 +91,9 @@ public class UserService : BaseService, IUserService
         {
             Subject = new ClaimsIdentity(new Claim[]
             {
-                new(ClaimTypes.Role, "User"),
-                new(ClaimTypes.Name, user.Name),
-                new(ClaimTypes.NameIdentifier, user.Id.ToString())
+                new(ClaimTypes.Role, "Usuario"),
+                new(ClaimTypes.Name, usuario.Nome),
+                new(ClaimTypes.NameIdentifier, usuario.Id.ToString())
             }),
             SigningCredentials =
                 new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
@@ -107,7 +105,7 @@ public class UserService : BaseService, IUserService
 
         var encodedToken = tokenHandler.WriteToken(token);
 
-        return new TokenUserDto
+        return new TokenUsuarioDto
         {
             Token = encodedToken
         };

@@ -7,7 +7,7 @@ public class Entity : IEntity
 {
     public int Id { get; set; }
 
-    public virtual bool Validate(out ValidationResult validationResult)
+    public virtual bool Validar(out ValidationResult validationResult)
     {
         validationResult = new ValidationResult();
         return validationResult.IsValid;

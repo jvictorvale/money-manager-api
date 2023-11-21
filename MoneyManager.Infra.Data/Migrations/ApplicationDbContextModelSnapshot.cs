@@ -19,7 +19,7 @@ namespace MoneyManager.Infra.Data.Migrations
                 .HasAnnotation("ProductVersion", "7.0.14")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("MoneyManager.Domain.Models.User", b =>
+            modelBuilder.Entity("MoneyManager.Domain.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

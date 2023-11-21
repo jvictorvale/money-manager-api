@@ -19,22 +19,17 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
         _dbSet = context.Set<T>();
     }
 
-    public void Add(T entity)
+    public IUnitOfWork UnitOfWork => Context;
+    
+    public void Adicionar(T entity)
     {
         _dbSet.Add(entity);
     }
 
-    public void Update(T entity)
+    public void Atualizar(T entity)
     {
         _dbSet.Update(entity);
     }
-
-    public void Delete(T entity)
-    {
-        _dbSet.Remove(entity);
-    }
-
-    public IUnitOfWork UnitOfWork => Context;
     
     public async Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression)
     {

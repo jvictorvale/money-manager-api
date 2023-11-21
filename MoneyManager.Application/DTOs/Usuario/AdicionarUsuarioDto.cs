@@ -1,51 +1,50 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 
-namespace MoneyManager.Application.DTOs.User;
+namespace MoneyManager.Application.DTOs.Usuario;
 
-public class RegisterUserDto
+public class AdicionarUsuarioDto
 {
-    public string Name { get; set; } = null!;
+    public string Nome { get; set; } = null!;
     public string Email { get; set; } = null!;
-    public string Password { get; set; } = null!;
-    public string ConfirmPassword { get; set; } = null!;
+    public string Senha { get; set; } = null!;
+    public string ConfirmarSenha { get; set; } = null!;
     
     public bool Validate(out ValidationResult validationResult)
     {
-        var validator = new InlineValidator<RegisterUserDto>();
+        var validator = new InlineValidator<AdicionarUsuarioDto>();
         
         validator
-            .RuleFor(x => x.Name)
+            .RuleFor(x => x.Nome)
             .NotEmpty()
-            .WithMessage("O nome não pode ser vazio.")
-            .Length(3, 150)
+            .WithMessage("O nome deve ser informado.")
+            .Length(3, 50)
             .WithMessage("O nome deve conter entre {MinLength} e {MaxLength} caracteres.");
 
         validator
             .RuleFor(x => x.Email)
             .NotEmpty()
-            .WithMessage("O email não pode ser vazio.")
+            .WithMessage("O email deve ser informado.")
             .EmailAddress()
             .WithMessage("O email fornecido não é válido.")
             .Length(3, 100)
             .WithMessage("O email deve conter entre {MinLength} e {MaxLength} caracteres.");
 
         validator
-            .RuleFor(x => x.Password)
+            .RuleFor(x => x.Senha)
             .NotEmpty()
-            .WithMessage("A senha não pode ser vazia.")
-            .Length(3, 250)
+            .WithMessage("A senha deve ser informada.")
+            .Length(3, 255)
             .WithMessage("A senha deve conter entre {MinLength} e {MaxLength} caracteres.");
 
         validator
-            .RuleFor(x => x.ConfirmPassword)
+            .RuleFor(x => x.ConfirmarSenha)
             .NotEmpty()
-            .WithMessage("O campo 'confirmar senha' não pode ser vazio.")
-            .Equal(x => x.Password)
+            .WithMessage("O campo 'confirmar senha' deve ser informado.")
+            .Equal(x => x.Senha)
             .WithMessage("As senhas não coincidem.");
 
         validationResult = validator.Validate(this);
-        
         return validationResult.IsValid;
     }
 }

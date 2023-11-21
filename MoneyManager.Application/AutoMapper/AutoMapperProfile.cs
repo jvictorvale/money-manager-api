@@ -1,5 +1,5 @@
 using AutoMapper;
-using MoneyManager.Application.DTOs.User;
+using MoneyManager.Application.DTOs.Usuario;
 using MoneyManager.Domain.Entities;
 
 namespace MoneyManager.Application.AutoMapper;
@@ -8,12 +8,12 @@ public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        #region User
+        #region Usuario
         
-        CreateMap<UserDto, User>().ReverseMap();
-        CreateMap<LoginUserDto, User>().ReverseMap();
-        CreateMap<RegisterUserDto, User>().ReverseMap();
-        CreateMap<UserDto, RegisterUserDto>().ReverseMap();
+        CreateMap<UsuarioDto, Usuario>().ReverseMap();
+        CreateMap<LoginUsuarioDto, Usuario>().ReverseMap();
+        CreateMap<AdicionarUsuarioDto, Usuario>().ReverseMap();
+        CreateMap<UsuarioDto, AdicionarUsuarioDto>().ReverseMap();
         
         #endregion
     }

@@ -20,7 +20,7 @@ public static class ModelBuilderExtension
     
     public static void ApplyTrackingConfiguration(this ModelBuilder modelBuilder)
     {
-        var propDatas = new[] { "CreatedAt", "UpdatedAt" };
+        var propDatas = new[] { "CriadoEm", "AtualizadoEm" };
         
         var entidades = modelBuilder.GetEntities<ITracking>();
         
