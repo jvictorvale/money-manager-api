@@ -32,7 +32,7 @@ public class UsuarioService : BaseService, IUsuarioService
         _passwordHasher = passwordHasher;
     }
 
-    public async Task<UsuarioDto?> Adicionar(AdicionarUsuarioDto dto)
+    public async Task<UsuarioDto?> Registrar(AdicionarUsuarioDto dto)
     {
         if (!dto.Validate(out var validationResult))
         {

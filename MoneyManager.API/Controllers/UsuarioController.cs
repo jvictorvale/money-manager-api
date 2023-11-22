@@ -17,13 +17,13 @@ public class UsuarioController : MainController
         _usuarioService = usuarioService;
     }
     
-    [HttpPost("adicionar")]
-    [SwaggerOperation(Summary = "Adicionar usuario")]
+    [HttpPost("registrar")]
+    [SwaggerOperation(Summary = "Registrar")]
     [ProducesResponseType(typeof(UsuarioDto), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(BadRequestResponse), StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Adicionar([FromBody] AdicionarUsuarioDto dto)
+    public async Task<IActionResult> Registrar([FromBody] AdicionarUsuarioDto dto)
     {
-        var adicionarUsuario = await _usuarioService.Adicionar(dto);
+        var adicionarUsuario = await _usuarioService.Registrar(dto);
         return OkResponse(adicionarUsuario);
     }
 
