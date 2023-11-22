@@ -1,4 +1,5 @@
 using AutoMapper;
+using MoneyManager.Application.DTOs.Capital;
 using MoneyManager.Application.DTOs.Usuario;
 using MoneyManager.Domain.Entities;
 
@@ -15,6 +16,14 @@ public class AutoMapperProfile : Profile
         CreateMap<AdicionarUsuarioDto, Usuario>().ReverseMap();
         CreateMap<UsuarioDto, AdicionarUsuarioDto>().ReverseMap();
         
+        #endregion
+
+        #region Capital
+
+        CreateMap<CapitalDto, Capital>().ReverseMap();
+        CreateMap<AdicionarCapitalDto, Capital>().ReverseMap();
+        CreateMap<AtualizarCapitalDto, Capital>().ReverseMap();
+
         #endregion
     }
 }

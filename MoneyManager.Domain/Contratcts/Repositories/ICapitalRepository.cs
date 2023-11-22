@@ -2,7 +2,7 @@ using MoneyManager.Domain.Entities;
 
 namespace MoneyManager.Domain.Contratcts.Repositories;
 
-public interface ICapitalRepository
+public interface ICapitalRepository : IRepository<Capital>
 {
     Task<Capital?> ObterPorId(int id, int? usuarioId);
 }
