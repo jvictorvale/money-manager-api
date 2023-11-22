@@ -18,8 +18,12 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
         Context = context;
         _dbSet = context.Set<T>();
     }
-
     public IUnitOfWork UnitOfWork => Context;
+    
+    public async Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression)
+    {
+        return await _dbSet.AsNoTrackingWithIdentityResolution().Where(expression).FirstOrDefaultAsync();
+    }
     
     public void Adicionar(T entity)
     {
@@ -29,11 +33,6 @@ public abstract class Repository<T> : IRepository<T> where T : Entity
     public void Atualizar(T entity)
     {
         _dbSet.Update(entity);
-    }
-    
-    public async Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression)
-    {
-        return await _dbSet.AsNoTrackingWithIdentityResolution().Where(expression).FirstOrDefaultAsync();
     }
     
     public void Dispose()

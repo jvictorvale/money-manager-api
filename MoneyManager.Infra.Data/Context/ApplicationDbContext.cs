@@ -10,7 +10,7 @@ namespace MoneyManager.Infra.Data.Context;
 public class ApplicationDbContext : DbContext, IUnitOfWork
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-    {}
+    { }
 
     public DbSet<Usuario> Usuarios { get; set; } = null!;
     public DbSet<Capital> Capitais { get; set; } = null!;

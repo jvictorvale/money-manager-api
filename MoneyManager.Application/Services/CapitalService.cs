@@ -59,6 +59,7 @@ public class CapitalService : BaseService, ICapitalService
         }
 
         var obterCapital = await _capitalRepository.ObterPorId(id, _httpContextAccessor.GetUserId());
+        
         if (obterCapital == null)
         {
             Notificator.HandleNotFoundResource();
@@ -90,6 +91,7 @@ public class CapitalService : BaseService, ICapitalService
     public async Task<CapitalDto?> ObterPorId(int id)
     {
         var obterCapital = await _capitalRepository.ObterPorId(id, _httpContextAccessor.GetUserId());
+        
         if (obterCapital != null)
         {
             return Mapper.Map<CapitalDto>(obterCapital);

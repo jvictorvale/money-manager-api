@@ -8,7 +8,7 @@ namespace MoneyManager.Infra.Data.Repositories;
 public  class UsuarioRepository : Repository<Usuario>, IUsuarioRepository
 {
     public UsuarioRepository(ApplicationDbContext context) : base(context)
-    {}
+    { }
     
     public async Task<Usuario?> ObterPorEmail(string email)
     {

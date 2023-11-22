@@ -5,9 +5,9 @@ using MoneyManager.Domain.Entities;
 namespace MoneyManager.Domain.Contratcts.Repositories;
 
 public interface IRepository<T> : IDisposable where T : Entity
-{ 
-    public IUnitOfWork UnitOfWork { get; } 
+{
     void Adicionar(T entity);
     void Atualizar(T entity);
+    public IUnitOfWork UnitOfWork { get; } 
     Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression);
 }

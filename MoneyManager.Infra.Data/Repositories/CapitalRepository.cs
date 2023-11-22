@@ -8,7 +8,7 @@ namespace MoneyManager.Infra.Data.Repositories;
 public class CapitalRepository : Repository<Capital>, ICapitalRepository
 {
     public CapitalRepository(ApplicationDbContext context) : base(context)
-    {}
+    { }
 
     public async Task<Capital?> ObterPorId(int id, int? usuarioId)
     {

@@ -14,34 +14,42 @@ public class CapitalMapping : IEntityTypeConfiguration<Capital>
 
         builder
             .Property(x => x.RendaFixa)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType("decimal(18,2)");
 
         builder
             .Property(x => x.RendaExtra)
-            .IsRequired(false);
+            .IsRequired(false)
+            .HasColumnType("decimal(18,2)");
 
         builder
             .Property(x => x.ReceitaTotal)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType("decimal(18,2)");
         
         builder
             .Property(x => x.DespesaFixa)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType("decimal(18,2)");
         
         builder
             .Property(x => x.DespesaExtra)
-            .IsRequired(false);
+            .IsRequired(false)
+            .HasColumnType("decimal(18,2)");
         
         builder
             .Property(x => x.Investimento)
-            .IsRequired(false);
+            .IsRequired(false)
+            .HasColumnType("decimal(18,2)");
         
         builder
             .Property(x => x.DespesaTotal)
-            .IsRequired();
+            .IsRequired()
+            .HasColumnType("decimal(18,2)");
         
         builder
             .Property(x => x.SaldoDisponivel)
-            .IsRequired();
+            .IsRequired()
+            ;
     }
 }
